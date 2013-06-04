@@ -19,6 +19,8 @@ class LinkClick(models.Model):
     site = models.ForeignKey(Site)
     link = models.CharField(max_length=512)
     referer = models.CharField(max_length=512)
+    accept_language = models.CharField(max_length=512)
+    user_agent = models.CharField(max_length=512)
     ip_addr = models.IPAddressField()
     date = models.DateField(auto_now=True)
     time = models.TimeField(auto_now=True)
@@ -39,7 +41,9 @@ class LinkClick(models.Model):
 
         self.user = user
         self.site = Site.objects.get_current()
-        self.referer = request.META.get('HTTP_REFERER','')
+        self.referer = request.META.get('HTTP_REFERER', '')
+        self.accept_language = request.META.get('HTTP_ACCEPT_LANGUAGE', '')
+        self.user_agent = request.META.get('HTTP_USER_AGENT', '')
         self.ip_addr = ip_addr
         self.save()
 

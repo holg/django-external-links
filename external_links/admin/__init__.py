@@ -11,7 +11,7 @@ class LinkClickAdmin(admin.ModelAdmin):
     search_fields = ('link', 'referer', 'ip_addr' )
     date_hierarchy = 'date'
     list_filter = ('site', )
-    list_display = ('link', 'referer', 'ip_addr', 'date', 'time')
+    list_display = ('link', 'referer', 'ip_addr', 'date', 'time', 'user_agent', 'accept_language')
 
     change_list_template = 'external_links/change_list.html'
 
@@ -35,5 +35,10 @@ class LinkClickAdmin(admin.ModelAdmin):
         )
         
         return my_urls + urls
+
+
+from external_links.models import LinkClick
+admin.site.register(LinkClick, LinkClickAdmin)
+
 
 
